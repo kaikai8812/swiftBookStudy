@@ -78,3 +78,35 @@ if let optionalNumber1 = number1, let optionalNumber2 = number2 {
 // ??演算子を用いて、Optional型に値が存在しない場合のデフォルト値を設定する。
 let optionalInt:Int? = nil
 let Int = optionalInt ?? 100  //optionalIntの値がない場合は、デフォルト値である100が代入される。
+
+//オプショナルチェイン ・・・アンラップをせずに、Wrapped型のメンバーにアクセスする方法
+
+let optionalDouble = Optional(1.0)
+let optionalIsInfinite = optionalDouble?.isInfinite //オプショナル型のデータに「?」をつけることで、Wrapped型のメンバーを使用することができるようになる。
+
+//map(_:)メソッドと、flatmap(_:)メソッド
+
+//mapメソッド
+let a = Optional(20)
+let b = a.map { value in value * 2}
+print(b)
+type(of: b)
+
+let c = a.map { value in String(value) }
+print(c)
+type(of: c)
+
+
+//暗黙的なアンラップをしたものの取扱
+
+let k:Int? = 10 //ここでのkは、optional型で値が代入されているため、wrapped型のデータを使用したい時は下記のように強制的にアンラップしたり、オプショナルバインディングをしないと、使用することができない。
+
+k! + k!
+
+let j:Int! = 20 //こちらでは、暗黙的に値のアンラップをしているためそのまま値を使用することができるが、値が入っていない場合はプログラムの実行時にエラーが生じるため、あまり使わない方が吉
+
+j + j
+
+
+
+
