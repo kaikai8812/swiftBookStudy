@@ -44,3 +44,21 @@ dictionary["addDic"] = [11,22]
 //キーと値の削除 -> キー値を指定して、nilを代入することで、キー値ごと削除することができる。
 dictionary["1-5"] = nil
 dictionary
+
+
+//範囲型について ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+let range1 = 1..<4   //Range<Int>型を示す。（4は含まない）
+let range2 = 1.9...4.0   //こちらの場合は、4を含む
+let range3:CountableRange<Int> = 10..<20
+let range4 = ...10   //片側の範囲だけを示すことも可能（この場合は、10以下のInt型の整数を表している。）
+
+//範囲内の数量をカウントできる(Boundが、Int型の場合に限る)
+print(range1.count)
+
+//範囲の上限と下限を表すメソッド
+range1.upperBound  //上限を示す
+range1.lowerBound  //下限を示す
+
+//値が、範囲に含まれているかを確認するメソッド(contains(_:))
+range1.contains(2)
+range1.contains(200)
