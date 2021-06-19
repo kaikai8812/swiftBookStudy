@@ -62,3 +62,24 @@ range1.lowerBound  //下限を示す
 //値が、範囲に含まれているかを確認するメソッド(contains(_:))
 range1.contains(2)
 range1.contains(200)
+
+
+//コレクションとしてのString型 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+//String型は、Character型と言う単一の一文字を表す型のコレクション型とも考えられる -> だから、count関数等が使えるのである。
+
+let character1:Character = "q"
+
+//String.index型  文字列内の位置を表す型
+
+let string1 = "abcde"
+
+//string型の一番最初の文字を表示
+print(string1[string1.startIndex])
+
+//2番目の文字を取得する
+print(string1[string1.index(string1.startIndex, offsetBy: 1)])
+
+//最後の文字を表示させる場合は、offsetメソッドを使用する必要がある。
+print(string1[string1.index(string1.endIndex, offsetBy: -1)])
+
