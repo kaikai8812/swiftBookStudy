@@ -83,3 +83,40 @@ print(string1[string1.index(string1.startIndex, offsetBy: 1)])
 //最後の文字を表示させる場合は、offsetメソッドを使用する必要がある。
 print(string1[string1.index(string1.endIndex, offsetBy: -1)])
 
+
+//シーケンスとコレクションを扱うためのプロトコル
+
+//シーケンスとは　=> 要素に対して、一方向から順次アクセス可能なデータ構造のこと -> 配列とか！！
+
+//Sequenceプロトコルにあるインターフェイスの種類
+
+//ForEachメソッド   要素に対して順次アクセスし、処理を行う。
+
+let AppendNumbers = [1,2,3,4,5]
+var beforeAppendNumbers:[Int] = []
+
+//beforeAppendNumbersに対し、AppendNumbersの値を２倍にして追加している。
+AppendNumbers.forEach { number in
+    beforeAppendNumbers.append(number * 2)
+}
+
+print(beforeAppendNumbers)
+
+//filterメソッド 指定した条件を満たす要素のみを含む、新しいシーケンスを返すメソッド
+
+let filterArray = AppendNumbers.filter { number in
+    number < 3    //条件を指定する。
+}
+
+print(filterArray)
+
+//mapメソッド　全ての要素を、特定の処理を用いて変換する
+
+let mapNumbers = AppendNumbers.map { number in
+    number * 2
+}
+
+//mapメソッドでは、変換した配列自体を、mapNumbersに代入しているのに対して、ForEach文では、配列の要素一つずつを変換して新しい配列に追加する。といった処理を行なっている。
+
+
+//flatMapメソッド   
