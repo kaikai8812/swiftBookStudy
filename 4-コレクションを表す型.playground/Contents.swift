@@ -119,4 +119,37 @@ let mapNumbers = AppendNumbers.map { number in
 //mapメソッドでは、変換した配列自体を、mapNumbersに代入しているのに対して、ForEach文では、配列の要素一つずつを変換して新しい配列に追加する。といった処理を行なっている。
 
 
-//flatMapメソッド   
+//flatMapメソッド 要素をシーケンスに変換し、それを一つのシーケンスに連結する
+let flatMapNumbers = [1,2,3]
+//flatMapメソッドを用いると、帰り値が一つのシーケンス、つまり一つの配列となって帰ってくる。
+flatMapNumbers.flatMap { value in
+    [value, value * 2, value * 3]
+}
+//mapメソッドを用いると、返り値が一つのシーケンスにならないため、二重配列の返り値が帰ってくる。
+flatMapNumbers.map { value in
+    [value, value * 2, value * 3]
+}
+
+
+//compactMapメソッド  処理できない場合が出てきた場合は、その処理に対してnilを返すことで、無視をする。
+
+let compactMapNumbers = ["abc", "10", "20"] as [Any]
+
+//この場合は、10,20はInt型に変換できるので処理されるが、abcはInt型にキャストすることができないため、無視された返り値が作成される。
+compactMapNumbers.compactMap { value in
+    Int(value as! String)
+}
+
+
+//reduceメソッド 配列の要素を、一つにまとめる。
+// => 第一引数に返り値の初期値を、第二引数に処理関係を記述する
+
+//reduceメソッドを用いて、配列内の数値を全て合計した結果を返り値として返す。
+
+let reduceNumber = [10,20,12,343]
+
+//resultは、各要素に処理を適用した後のresultの値が返り値として帰る。
+reduceNumber.reduce(0) { result, value in
+    result + value
+}
+
