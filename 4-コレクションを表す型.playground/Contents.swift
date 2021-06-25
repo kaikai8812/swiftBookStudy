@@ -1,7 +1,7 @@
 import UIKit
 
 //コレクションとは、値の集まりのこと。
-//タプルは、違う方のものを集めたもの？
+//タプルは、違う方のものを集めたもの
 //コレクションの基本機能は、Sequrnceプロトコルや、Collectionプロトコルで定義されている。
 
 //配列型の操作について ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -25,7 +25,6 @@ integers2.removeAll()    //配列内の値を全て削除する(配列自体は�
 //辞書型におけるキー値は、HashbleProtocolに準拠している必要がある（キー値には、Array型などは使用できない。）
 //以下のように、value値には配列等も入れることが可能。
 var dictionary:[String: [Int]]
-
 dictionary = ["1-5": [1,2,3,4,5], "6-10": [6,7,8,9,10]]
 
 //辞書型データへのアクセス方法
@@ -36,7 +35,7 @@ let value1 = dictionary["1-5"]
 let valueNothing = dictionary["nil"]
 
 //辞書型データの更新、追加、削除方法
-//キー値を指定するだけで、色々値を操作できる、
+//キー値を指定するだけで、色々値を操作できる
 
 //キー値とvalueの追加
 dictionary["addDic"] = [11,22]
@@ -133,19 +132,10 @@ flatMapNumbers.map { value in
 
 //compactMapメソッド  処理できない場合が出てきた場合は、その処理に対してnilを返すことで、無視をする。
 
-let compactMapNumbers = ["abc", "10", "20"] as [Any]
-
-//この場合は、10,20はInt型に変換できるので処理されるが、abcはInt型にキャストすることができないため、無視された返り値が作成される。
-compactMapNumbers.compactMap { value in
-    Int(value as! String)
-}
-
-
 //reduceメソッド 配列の要素を、一つにまとめる。
 // => 第一引数に返り値の初期値を、第二引数に処理関係を記述する
 
 //reduceメソッドを用いて、配列内の数値を全て合計した結果を返り値として返す。
-
 let reduceNumber = [10,20,12,343]
 
 //resultは、各要素に処理を適用した後のresultの値が返り値として帰る。
