@@ -82,3 +82,42 @@ func guardAdd (optionalA:Int?, optionalB:Int?) -> Int?  {
 }
 
 
+//switch文の使用方法 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+//基本的な使用方法
+func switchFunc1() {
+    
+    let a = 10
+    
+    switch a {
+    case Int.min..<0:
+        print("aは負の値です")
+    case 1..<Int.max:
+        print("aは正の値です")
+    default:
+        print("aは0です")
+    }
+    
+}
+
+//Swiftのswitch文は、制御式の網羅性がコンパイル時にチェックされ、網羅されていない場合は、コンパイルエラーが生じる
+
+func switchFunc2() {
+    enum SomeEnum {
+        case foo
+        case bar
+        case baz
+    }
+    
+    let foo = SomeEnum.foo
+    
+    //下記の記述のように、制御式がとりうる場合(今回は、foo,bar,baz)という状態の全てのケースを網羅していないと、コンパイルエラーが生じる。
+    switch  foo {
+    case .foo:
+        print("foo")
+    case .bar:
+        print("bar")
+    case .baz:
+        print("baz")
+    }
+}
