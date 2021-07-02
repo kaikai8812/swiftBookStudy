@@ -137,7 +137,38 @@ func switchFunc3(optionalA: Int?) {
         print("10より大きい数字である、\(a)が存在します。")
     case .some(let a) where a <= 10:    //someをcase分で使用することで、optionalAをアンラップした後、[a]に代入し、Int? => Int型に変換しているテクニック
         print("10以下の数字である、\(a)が存在します。")
-    default:
-        print("default")
+    default: break
+
     }
 }
+
+//ラベル文　break文の制御体制の指定 (ネストされているswitch文があったとして、親のswitch文からbreakしたい場合などに使用する。)
+
+//Any型の値がInt型に変更可能であれば、その値が奇数か偶数かを出力する処理で例を書く
+
+func switchFunc4() {
+    let value = 19 as Any
+    
+    outerSwitch: switch value {     //outerSwitchが、ラベル名
+    case let int as Int:   //ここのcaseでAny型の値をInt型にキャストできるかを確認する
+        let description:String
+        
+        switch int {        //ネストされたswitch文で、奇数か偶数かの判断を行う。
+        case int where int % 2 != 0:
+            description = "奇数"
+        case int where int % 2 == 0:
+            description = "偶数"
+        default:
+            print("対象外の値です")
+            break outerSwitch  //親のswitch処理まで、全てを終了する
+        }
+        
+        print("値は、\(description)の\(int)です") //descriptionに値が入っていない場合は、ここの処理は適用されないという保証がbreak outerswitch文で保証されているため、ここでコンパイルエラーが生じない。
+        
+    default:
+        print("対象外の値です。")
+    }
+    
+}
+
+switchFunc4()
