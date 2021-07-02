@@ -119,5 +119,25 @@ func switchFunc2() {
         print("bar")
     case .baz:
         print("baz")
+        
+    default:            //defaultは、全てのケースを網羅してしまい、コンパイルエラーを発生させることがなくなり、想定外の値が入ったことに気づきにくくなるため、あまり使わない方が良い。
+        print("デフォルトです")
+    }
+    
+}
+
+//switch文　whereキーワード ケースにマッチする条件の追加
+
+//caseの後にsomeを用いてアンラップすることで、オプショナル型の値を条件式で判定することができる。
+
+func switchFunc3(optionalA: Int?) {
+    
+    switch optionalA {
+    case .some(let a) where a > 10:   //whereを使用することで、入ってくる値に条件を加えることができる。
+        print("10より大きい数字である、\(a)が存在します。")
+    case .some(let a) where a <= 10:    //someをcase分で使用することで、optionalAをアンラップした後、[a]に代入し、Int? => Int型に変換しているテクニック
+        print("10以下の数字である、\(a)が存在します。")
+    default:
+        print("default")
     }
 }
