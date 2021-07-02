@@ -171,4 +171,20 @@ func switchFunc4() {
     
 }
 
-switchFunc4()
+//fallthrough文　switch文の次のケースへの制御の移動
+
+func switchFunc5() {
+    let a = 2
+    
+    switch a {
+    case 1:
+        print("一つ目のケース")
+            fallthrough   //fallrhroughで、case 2 の処理も実行される。
+    case 2:
+        print("二つ目のケース")
+    default:
+        print("default")
+    }
+}
+
+switchFunc5()
