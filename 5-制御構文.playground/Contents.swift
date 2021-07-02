@@ -187,4 +187,16 @@ func switchFunc5() {
     }
 }
 
-switchFunc5()
+//5.3繰り返し構文
+
+//while文とrepeat-while文の違い
+
+//repeat-while文は、最低一回は処理を行いたい時に記述するもの
+
+
+var a = 10
+//先にrepeat文を書いた後、while文の条件を記述する。
+repeat {
+    print(a)
+    a += 1
+} while a < 5
