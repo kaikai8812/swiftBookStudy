@@ -264,8 +264,26 @@ func labelBreakFunc(array: [Int]){
     }
 }
 
-labelBreakFunc(array: [1,2,3,100])
+//labelBreakFunc(array: [1,2,3,100])
 
 
+//遅延実行 defer文を用いて
+
+//スコープの退出時に、確実に実行されて欲しい処理を記述する際に用いることが多い。
+
+var deferCount = 0
+
+func deferFunc() -> Int{
+    
+    defer { //defer構文の内容は、対象のスコープ内の処理が終了した時点で実行される。　(ここでは、return deferCount文の後に実行される。)
+        deferCount += 1
+        print("defer内の文章です。")
+    }
+    print("処理を終了します。")
+    return deferCount
+}
+//
+//deferFunc()
+//deferCount
 
 
