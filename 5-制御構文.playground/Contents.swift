@@ -142,6 +142,8 @@ func switchFunc3(optionalA: Int?) {
     }
 }
 
+switchFunc3(optionalA: 25)
+
 //ラベル文　break文の制御体制の指定 (ネストされているswitch文があったとして、親のswitch文からbreakしたい場合などに使用する。)
 
 //Any型の値がInt型に変更可能であれば、その値が奇数か偶数かを出力する処理で例を書く
@@ -194,9 +196,76 @@ func switchFunc5() {
 //repeat-while文は、最低一回は処理を行いたい時に記述するもの
 
 
-var a = 10
+var a = 2
 //先にrepeat文を書いた後、while文の条件を記述する。
 repeat {
-    print(a)
+    print(a)  //aの値に問わず、最初の値はrepeat文があることにより、必ず表示される。
     a += 1
 } while a < 5
+
+//繰り返し構文ー実行文の中断方法
+
+//breakを用いて、for文の処理を途中で終了する。
+func breakTest(int:Int){
+    var containsTwo = false
+    let array = [1,2,3,4,5]
+    
+    for element in array {
+        if element == int{
+            containsTwo = true
+            break  //配列の中にint（引数）が出てきたら、処理を終了する。
+        }
+        print("\(element)です。")  //breakが適用された場合は、ここのprintが実行されなくなる。
+    }
+    
+}
+
+//for文内でcontinueを用いることで、特定の場合にfor文内の処理をスキップする（for文の次の処理が行われるようになる。）
+
+var continueCount = 0
+
+func continueTest(array: [Int]){
+    for element in array {
+        continueCount += 1
+        if element % 2 == 0{  //もし、要素が偶数だったら
+            print("\(element)は、偶数です。")
+            continue    //elementが偶数であった場合は、以下の奇数の表示を行う処理をせず、for文の次の処理に移る。
+        }
+        print("\(element)は、奇数です。")
+        if continueCount == array.count {
+            print("配列の要素数は\(continueCount)で、全ての要素の検証が終了しました。")
+        }
+    }
+}
+
+//ラベルとbreak文を用いて、上位のfor構文も終了させる。
+
+var labelBreakCount1 = 0
+var labelBreakCount2 = 0
+var labelBreakArray:[Int] = []
+
+func labelBreakFunc(array: [Int]){
+    label: for element in array {
+        let arrayelement = element * 2
+        labelBreakCount1 += 1
+        
+        labelBreakArray.append(arrayelement)
+        print("\(labelBreakCount1)回目:\(labelBreakArray)")
+        
+        
+        labelBreakCount2 = 0
+        for element in array{
+            if labelBreakArray.count == 3 {
+                print("もし3回目だったら、親の処理まで終了します。")
+//                break     //ラベル名を指定しない場合は、子のfor文の処理だけが終了する。
+                break label     //子のfor文でも、親のfor文をラベル名で指定してあげれば、終了させることができる。
+            }
+        }
+    }
+}
+
+labelBreakFunc(array: [1,2,3,100])
+
+
+
+
