@@ -238,6 +238,7 @@ func continueTest(array: [Int]){
     }
 }
 
+
 //ラベルとbreak文を用いて、上位のfor構文も終了させる。
 
 var labelBreakCount1 = 0
@@ -286,4 +287,41 @@ func deferFunc() -> Int{
 //deferFunc()
 //deferCount
 
+
+//パターンマッチについて 値の構造や性質を表現するパターン
+
+
+//式パターン => =や、==などを用いて式を評価する場合のパターン
+
+
+//バリューバインディングパターン　=> varやletを用いて、値を代入することができるかどうかで判断する
+
+func valueBindingFunc(string:String){
+    switch string {
+    case let matchValue: //変数に値を代入できたらこの条件式が適用される。
+        print(matchValue)   //matchValueに値が代入されているので。ここの式が実行される。
+    default:
+        print("引数が指定されていません")
+    }
+}
+valueBindingFunc(string: "設定した引数です。")
+
+
+//オプショナルパターン  Optional型の値の有無を評価するパターン
+
+//下記の関数の例では、Optional<Int>型の評価式から、Int型の値を取り出すために、バリューバインディングパターンとオプショナルパターンを組み合わせている。
+func optionalFunc(optionalA:Optional<Int>){
+    
+    switch optionalA {  //optionalAには、オプショナル型の値が入ってくる
+    case let unWrappedA?:   //?をつけることによって、optionalAをアンラップした後の値をunWrappedAに代入している。
+        print(unWrappedA)
+        print(type(of: unWrappedA))
+    default:
+        print("処理がうまくいきません。")
+    }
+}
+
+var optionalB:Int? = 10
+print(optionalB)
+optionalFunc(optionalA: optionalB)
 
