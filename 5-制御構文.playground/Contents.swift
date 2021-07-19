@@ -325,3 +325,25 @@ var optionalB:Int? = 10
 print(optionalB)
 optionalFunc(optionalA: optionalB)
 
+
+//列挙型ケースパターン
+
+enum Hemisphere :String {  //enum型で、二つの値を設定(string型で指定している。)
+    case northern
+    case southern
+}
+
+func enumFunc(){
+    let hemisphere = Hemisphere.southern
+    
+    switch hemisphere {  //enum型で規定された値によって、場合分けを行う。
+    case .northern:
+        print("選ばれたのは、\(hemisphere)です。")
+    case .southern:
+        print("選ばれたのは、\(hemisphere)です。")
+    default:
+        break
+    }
+}
+enumFunc()
+print(Hemisphere.northern)
