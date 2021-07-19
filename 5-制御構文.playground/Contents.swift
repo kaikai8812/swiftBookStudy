@@ -366,3 +366,24 @@ func RensoutiFunc(){
     }
 }
 RensoutiFunc()
+
+//is演算子による型キャスティングパターン
+
+let isCastingA:Any = "こんにちわ"
+let isCastingB:Any = 10
+let isCastinC:Any = [1,2,3]
+
+func isCastingFunc(value:Any) {
+    switch value {
+    case is String:  //ここでis演算子を用いて、型による場合分けを行っている。
+        print("string型の値、\(value)です。")
+    case is Int:
+        print("int型の値、\(value)です。")
+    default:
+        print("int型でもstring型でもありません。")
+    }
+}
+
+isCastingFunc(value: isCastingA)  //引数に入ってくる型の種類によって、表示させるものを判断している。
+isCastingFunc(value: isCastingB)
+isCastingFunc(value: isCastinC)
