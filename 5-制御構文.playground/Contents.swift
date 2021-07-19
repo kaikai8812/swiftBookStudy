@@ -384,6 +384,23 @@ func isCastingFunc(value:Any) {
     }
 }
 
-isCastingFunc(value: isCastingA)  //引数に入ってくる型の種類によって、表示させるものを判断している。
-isCastingFunc(value: isCastingB)
-isCastingFunc(value: isCastinC)
+//isCastingFunc(value: isCastingA)  //引数に入ってくる型の種類によって、表示させるものを判断している。
+//isCastingFunc(value: isCastingB)
+//isCastingFunc(value: isCastinC)
+
+
+//as演算子による型キャスティングパターン
+
+func asCastingFunc(value:Any){
+    switch value {
+    case let string as String: //もし、値がString型にダウンキャストが成功したら、この条件式を適用する。
+        print("string型の値、\(value)です。")
+    case let int as Int:      //もし、値がInt型にダウンキャストすることができたら、この条件式を適用する。
+        print("int型の値、\(value)です。")
+    default:
+        print("int型でもstring型でもありません。")
+    }
+}
+asCastingFunc(value: isCastingA)
+
+
