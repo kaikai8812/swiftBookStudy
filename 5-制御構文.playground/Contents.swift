@@ -345,5 +345,24 @@ func enumFunc(){
         break
     }
 }
-enumFunc()
-print(Hemisphere.northern)
+//enumFunc()
+//print(Hemisphere.northern)
+
+//列挙型を用いて、連想値のパターンマッチも可能にする方法
+
+enum Color {
+    case rgb(Int,Int,Int)
+    case sauna(Int,Int)
+}
+
+func RensoutiFunc(){
+    let color = Color.rgb(100, 20, 10)
+    
+    switch color {
+    case .rgb(let r, let g, let b):  //連想値を持つケースにバリューバインディングパターンを使用することで、連想値の値を変数に直接代入することができる。
+        print("\(r),\(g), \(b)")
+    default:
+        break
+    }
+}
+RensoutiFunc()
