@@ -390,6 +390,7 @@ func isCastingFunc(value:Any) {
 
 
 //as演算子による型キャスティングパターン
+//firebaseから情報を取得する際に使用したパターンがこれになる。
 
 func asCastingFunc(value:Any){
     switch value {
@@ -401,6 +402,16 @@ func asCastingFunc(value:Any){
         print("int型でもstring型でもありません。")
     }
 }
-asCastingFunc(value: isCastingA)
+//asCastingFunc(value: isCastingA)
 
 
+// if文でパターンマッチを使用する場合
+
+// if case パターン = 制御式 { 実行される処理を記述する}
+
+func ifFunc (value:Any){  //渡される引数が、数値型に変換できるものであったら、文を出力する。　これは、バリューバインディングとダウンキャストを同時に行うやつ。
+    if case let int as Int = value{
+        print("引数「\(int)」は、数値型に変換できます。")
+    }
+}
+ifFunc(value: 250)
