@@ -434,3 +434,16 @@ func guradmatchFunc(value:Any){
 
 guradmatchFunc(value: 100)
 guradmatchFunc(value: "文字列")
+
+
+//for文を用いて、パターンマッチを利用する・・・配列等で、条件に当てはまるものだけに処理を適用することができる。
+
+func forMatchFunc(array:[Int]){
+    var count = 0
+    for case 10...20 in array{  //この条件式に当てはまる要素のみが下記の処理が実行される。
+        count += 1
+        print("\(count)目の要素は、10~20の間の数値です。")
+    }
+}
+
+forMatchFunc(array: [1,20,25,20,30])
