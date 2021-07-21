@@ -67,8 +67,8 @@ func ifAdd(optionalA:Int?, optionalB:Int?) -> Int? {
 //guard文を用いた場合
 func guardAdd (optionalA:Int?, optionalB:Int?) -> Int?  {
     
-    guard let a = optionalA else {
-        print("第一引数に値が入っていません。")
+    guard let a = optionalA else {  //ここで定義した「a」は、後の処理でも使用することができる。
+        print("第一引数に値が入っていません。") //条件式がうまくいかなかった場合に、ここの処理が実行される。
         return nil
     }
     
@@ -80,6 +80,8 @@ func guardAdd (optionalA:Int?, optionalB:Int?) -> Int?  {
     //guard内で規定した変数は、条件式がfalseだった場合、その後の処理にも使用できるので、記述量がif文に比べて少なくなる。
     return a + b
 }
+
+guardAdd(optionalA: 10, optionalB: 20)
 
 
 //switch文の使用方法 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -415,3 +417,20 @@ func ifFunc (value:Any){  //渡される引数が、数値型に変換できる�
     }
 }
 ifFunc(value: 250)
+
+//guard文を用いてパターンマッチを使用する
+
+
+//与えられた値が数値型であることを判断し、数値型であれば10倍にして返す関数
+func guradmatchFunc(value:Any){
+    
+    guard case let int as Int = value else {
+        print("与えられた引数は、数値型ではありません！「\(value)」を文字列に直してください！！")
+        return
+    }
+    //以下が、guard文によって引数が数値型であることが保証された後に行われる実行文
+    print(int * 10)
+}
+
+guradmatchFunc(value: 100)
+guradmatchFunc(value: "文字列")
