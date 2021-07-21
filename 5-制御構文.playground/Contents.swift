@@ -446,4 +446,21 @@ func forMatchFunc(array:[Int]){
     }
 }
 
-forMatchFunc(array: [1,20,25,20,30])
+//forMatchFunc(array: [1,20,25,20,30])
+
+
+//while文を用いたパターンマッチ処理
+
+var nextValue = Optional(1)
+
+while case let value? = nextValue {  //nextValueがvalueに代入できる時、つまりnextValueがnilでない場合には、このwhile文が実行される。
+    
+    print("\(value)です。")
+    
+    if value >= 3 {  //ここでnextValueに対する処理を記述している。
+        nextValue = nil
+    } else {
+        nextValue = value + 1
+    }
+    
+}
