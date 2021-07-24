@@ -137,7 +137,7 @@ func switchFunc3(optionalA: Int?) {
     switch optionalA {
     case .some(let a) where a > 10:   //whereを使用することで、入ってくる値に条件を加えることができる。
         print("10より大きい数字である、\(a)が存在します。")
-    case .some(let a) where a <= 10:    //someをcase分で使用することで、optionalAをアンラップした後、[a]に代入し、Int? => Int型に変換しているテクニック
+    case .some(let a) where a <= 10:
         print("10以下の数字である、\(a)が存在します。")
     default: break
 
@@ -172,9 +172,10 @@ func switchFunc4() {
     default:
         print("対象外の値です。")
     }
-    
 }
 
+
+switchFunc4()
 //fallthrough文　switch文の次のケースへの制御の移動
 
 func switchFunc5() {
@@ -198,7 +199,7 @@ func switchFunc5() {
 //repeat-while文は、最低一回は処理を行いたい時に記述するもの
 
 
-var a = 2
+var a = 8
 //先にrepeat文を書いた後、while文の条件を記述する。
 repeat {
     print(a)  //aの値に問わず、最初の値はrepeat文があることにより、必ず表示される。
@@ -234,13 +235,11 @@ func continueTest(array: [Int]){
             continue    //elementが偶数であった場合は、以下の奇数の表示を行う処理をせず、for文の次の処理に移る。
         }
         print("\(element)は、奇数です。")
-        if continueCount == array.count {
-            print("配列の要素数は\(continueCount)で、全ての要素の検証が終了しました。")
-        }
     }
+    print("配列の要素数は\(continueCount)で、全ての要素の検証が終了しました。") //for文が終了した後で、この処理を実行する。
 }
 
-
+continueTest(array: [1,2,3,4,5,6])
 //ラベルとbreak文を用いて、上位のfor構文も終了させる。
 
 var labelBreakCount1 = 0
@@ -267,7 +266,7 @@ func labelBreakFunc(array: [Int]){
     }
 }
 
-//labelBreakFunc(array: [1,2,3,100])
+labelBreakFunc(array: [1,2,3,100])
 
 
 //遅延実行 defer文を用いて
@@ -319,7 +318,7 @@ func optionalFunc(optionalA:Optional<Int>){
         print(unWrappedA)
         print(type(of: unWrappedA))
     default:
-        print("処理がうまくいきません。")
+        print("このOptional型には、データが入っていません。")
     }
 }
 
@@ -335,8 +334,7 @@ enum Hemisphere :String {  //enum型で、二つの値を設定(string型で指�
     case southern
 }
 
-func enumFunc(){
-    let hemisphere = Hemisphere.southern
+func enumFunc(hemisphere:Hemisphere){
     
     switch hemisphere {  //enum型で規定された値によって、場合分けを行う。
     case .northern:
@@ -347,8 +345,8 @@ func enumFunc(){
         break
     }
 }
-//enumFunc()
-//print(Hemisphere.northern)
+enumFunc(hemisphere: .northern)
+
 
 //列挙型を用いて、連想値のパターンマッチも可能にする方法
 
@@ -386,9 +384,9 @@ func isCastingFunc(value:Any) {
     }
 }
 
-//isCastingFunc(value: isCastingA)  //引数に入ってくる型の種類によって、表示させるものを判断している。
-//isCastingFunc(value: isCastingB)
-//isCastingFunc(value: isCastinC)
+isCastingFunc(value: isCastingA)  //引数に入ってくる型の種類によって、表示させるものを判断している。
+isCastingFunc(value: isCastingB)
+isCastingFunc(value: isCastinC)
 
 
 //as演算子による型キャスティングパターン
@@ -404,7 +402,7 @@ func asCastingFunc(value:Any){
         print("int型でもstring型でもありません。")
     }
 }
-//asCastingFunc(value: isCastingA)
+asCastingFunc(value: isCastingA)
 
 
 // if文でパターンマッチを使用する場合
@@ -446,7 +444,7 @@ func forMatchFunc(array:[Int]){
     }
 }
 
-//forMatchFunc(array: [1,20,25,20,30])
+forMatchFunc(array: [1,20,25,20,30])
 
 
 //while文を用いたパターンマッチ処理
