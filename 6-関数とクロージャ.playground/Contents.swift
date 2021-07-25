@@ -107,4 +107,68 @@ func implctReturn(name : String) -> String{
 }
 print(implctReturn(name: "山田孝之"))
 
+//6.3 クロージャーについて ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
+//そもそも、クロージャとは? => スコープ内の変数や定義を保持したひとまとまりの処理のこと
+//関数との違い => 名前が不要、型推論によって、型の定義が不要であるなど、関数より手軽に使用することができる.
+
+
+//定義方法
+
+let closureSample = { (x :Int, y: Int) -> Int in  //closureSampleの定義を、クロージャを用いて行なっている。
+    return x * 10 + y * 10
+}
+type(of: closureSample)  //型は、((Int, Int) -> Int).Type型(クロージャの型)となる。
+closureSample(10,20)
+
+//クロージャを引数として使用する
+
+func closureToString(int :Int) -> String{
+    return String(int)
+}
+
+closureToString(int: closureSample(10,20))
+
+//クロージャの型推論
+
+var closure1: (String) -> Int  //String型の引数を持って、Int型の値を返すクロージャ型の変数を定義
+
+
+//型推論を使用しない場合のクロージャ
+closure1 = {(string:String) -> Int in
+    return string.count
+}
+closure1("おはようございます。")
+
+//型推論を利用した場合のクロージャ  -> 先にclosure1という変数を定義している際に(String) -> Int　型という定義をしているため、わざわざ型を指定しなくても、型推論を用いて記述を省略することができる。
+closure1  = {string in
+    return string.count
+}
+closure1("こんばんわ")
+
+//クロージャの引数について
+
+//クロージャの引数は、外部引数名とデフォルト引数が使えない代わりに、簡略引数名というものが使用できる。
+//簡略引数名を使用した例 ↓
+
+let isEqual: (Int,Int) -> Bool = {  //型アノテーションのしたクロージャ型の変数でないと、簡略引数名を使用することはできない(簡略引数の型推論をすることができないため。)
+    return $0 == $1
+}
+
+isEqual(100,150)
+
+//実験　引数として受け取った4つの数字を配列に直すクロージャ //簡略引数名を利用している。
+let IntToArrayCreate: (Int,Int,Int,Int) -> [Int] = {
+    var count = 0
+    var array :[Int] = []
+    
+    array.append($0)
+    array.append($1)
+    array.append($2)
+    array.append($3)
+    
+    return array
+    
+}
+
+IntToArrayCreate(10,20,30,40)
