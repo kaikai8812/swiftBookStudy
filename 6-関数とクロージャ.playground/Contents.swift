@@ -15,7 +15,7 @@ _ = double(10)
 let doubleNumber = double(10)  //戻り値を変数に代入することも可能
 
 
-//引数について
+//引数について------
 // 関数の定義時に宣言するもの　=> 仮引数  関数の呼び出し時に指定する引数 => 実引数
 
 //外部引数名と、内部引数名について
@@ -77,4 +77,34 @@ func printStrings(strings: String...){  //引数の型指定の後に"..."をつ
 }
 
 printStrings(strings: "1-太郎", "2-山田", "間抜け太郎")
+
+//戻り値について------
+
+//戻り値がない関数について => 戻り値がvoid型であるという考え方である
+//void型とは => 要素の型が0個のTuple型のことを、void型という。nilは、値があり得る場所に値がないことを示すが、void型はそもそもから値がないことを示す。
+
+//void型を戻り値に設定する
+func voidTest() -> Void {
+    print("voidTestです。")
+}
+
+voidTest()
+
+//コンパイラによる戻り値のチェック
+
+func convertInt(from string:String) -> Int{
+    type(of: Int(string))
+    return Int(string)!     //Int()でキャストした値は、Optional(Int)型になるので、!をつけてアンラップを行なっている。
+}
+
+convertInt(from: "100")
+
+//暗黙的なreturn  =>  関数が戻り値の返却のみの処理である場合、returnの記述を省略することができる。
+
+func implctReturn(name : String) -> String{
+    "hello,\(name)さん！！"  //関数内の処理が戻り値を返すだけだった場合、retrunの記述を省略することができる。
+//    print("引数は\(name)です")　　左記のような違う処理を含むと、retrunを書かなくてはいけなくなる。
+}
+print(implctReturn(name: "山田孝之"))
+
 
