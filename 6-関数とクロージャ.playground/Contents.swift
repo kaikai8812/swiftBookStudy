@@ -224,4 +224,55 @@ closureCounter()  //countの値が1 -> 2 に変化していることから、ス
 
 
 
+//引数としてのクロージャ
+
+//引数としてクロージャを使用する場合、「属性」と、「　トレイリングクロージャ」というものがある
+//属性 => クロージャに対する付加情報
+//トレイリングクロージャ => クロージャを引数に取る関数の可読性を高めるもの
+
+
+//属性の指定方法  属性には、escaping属性と、autoclosure属性が存在する。
+
+//第二引数をautoclosure属性が指定されたクロージャ ↓
+
+func or (_ lhs: Bool, _ rhs: @autoclosure () -> String) -> String {
+    if lhs {
+        return "lhsが選択されました"
+    } else {
+        return rhs()
+    }
+}
+
+or(false, "rhsで選択された文章")
+
+
+//escaping属性 => 非同期的に実行されるクロージャ
+
+var queue = [() -> Void]() //クロージャ型が入る配列を定義
+
+func enqueue(operation: @escaping () -> Void){  //引数に、escaping属性を持つクロージャ型を指定する
+    queue.append(operation)  //引数に受け取った値を配列に追加
+}
+
+enqueue {  //ここで、配列にクロージャ（行う処理）を追加していくイメージ
+    print("一つ目の要素") //ここで、引数であるクロージャを配列に追加するために、一旦関数のスコープ外で保持する必要があるため、escaping属性が必要となる？？
+}
+
+enqueue {
+    print("二つ目の要素")
+}
+
+queue.forEach({ $0() })  //$0という記述で、引数のないクロージャを単純に実行しているという意味合いとなる。
+
+//queueという配列に引数で受け取ったクロージャを保持していなくてはならないので、escaping属性が必要となる？ 配列で、引数で受け取ったクロージャを保持しておかないといけないので、escaping属性が必要となる。
+
+//escaping属性を必要としない場合
+
+func executeTwice(operation: () -> Void) {  //
+    operation()
+    operation()
+}
+executeTwice {  //今回の関数では、引数で受け取ったクロージャをただ2回実行するだけのプログラムであり、情報を保持する必要がないのでescaping属性は必要がない。
+    print("クロージャを実行しています。")
+}
 
