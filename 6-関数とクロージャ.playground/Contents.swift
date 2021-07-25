@@ -172,3 +172,13 @@ let IntToArrayCreate: (Int,Int,Int,Int) -> [Int] = {
 }
 
 IntToArrayCreate(10,20,30,40)
+//簡略引数名は、非常にシンプルな処理を記述する際には、積極的に使用していくべし！！
+
+let numbers = [10,20,30,40]
+let moreThanTwenty1 = numbers.filter {$0 > 20}  //クロージャを用いて、filterメソッドの引数を与えている。$0 は、元の配列の要素を表している。
+let moreThanTwenty2 = numbers.filter { int in  //通常の書き方をすると左記のようになり、記述量が増える。
+    int > 20
+}
+moreThanTwenty1
+moreThanTwenty2
+
