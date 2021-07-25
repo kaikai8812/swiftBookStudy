@@ -182,3 +182,46 @@ let moreThanTwenty2 = numbers.filter { int in  //通常の書き方をすると�
 moreThanTwenty1
 moreThanTwenty2
 
+
+//クロージャの戻り値についてーーーーーーーーーーーーーーーーーーー
+
+//戻り値がないクロージャ
+let emptyReturnValueClosure: () -> Void = {}
+
+//戻り値が一つ存在するクロージャ
+let singleReturnValueClosure: () -> Int = {
+    return 1
+}
+
+//クロージャで定義された変数や定数の扱い
+
+let closureGreeting: (String) -> String
+    
+    do {  //do文は、スコープを作成する用途でも使用することができる。
+        let symbol = "!" //このsymbolは、このスコープ内で作成されたものなので、スコープ外では使用できない。
+        closureGreeting = { user in
+            return "Hello,\(user)\(symbol)"
+        }
+    }
+
+closureGreeting("青山さん")  //closureGreetingという変数は、do文のスコープ外で定義されているため、使用することができる。
+//print(symbol) これは使用することができない。
+
+let closureCounter : () -> Int
+do {
+    var count = 0
+    closureCounter = {
+        count += 1
+        print(count)
+        return count
+    }
+}
+
+closureCounter()  //クロージャがキャプチャという機能を用いて、スコープの範囲外であるcountという変数にアクセスすることができる
+closureCounter()  //countの値が1 -> 2 に変化していることから、スコープ外の値の保持性もあることがわかる。
+
+//まとめると、キャプチャとは、クロージャの定義がされているスコープ(今回だったらdo文の中)で定義されている変数や定数ならば、クロージャを通じてスコープ外からでもアクセスすることができる機能
+
+
+
+
