@@ -276,3 +276,63 @@ executeTwice {  //今回の関数では、引数で受け取ったクロージ�
     print("クロージャを実行しています。")
 }
 
+
+//クロージャを引数に用いて、遅延評価を行う方法ーーーーーーーーーーーーーーーーーーー
+
+//引数を関数かクロージャにする違いでの挙動の変化
+
+//引数を二つとも関数で取った場合
+
+func or1(lhs:Bool,rhs:Bool) -> Bool{
+    
+    if lhs {
+        print("lhs-true")
+        return true
+    } else {
+        print("rhs")
+        return rhs
+    }
+}
+
+func lhs1() -> Bool {
+    print("lhs関数を実行します")
+    return true
+}
+
+func rhs1() -> Bool {
+    print("rhs関数を実行します")
+    return false
+}
+
+//or1(lhs: lhs1(), rhs: rhs1())  //関数を引数に取ると、現在のようなlhs関数だけの使用だけで処理が終わるような場合でも、rhs関数も実行してしまっており、処理速度が落ちる。
+//理由 -> 引数に使用される関数は、関数の正格効果によるものである。
+
+
+//第二引数を関数ではなく、クロージャで作成することによって、必要になるまで処理を行わないようにすることができる ↓
+
+
+
+func or2(lhs:Bool,rhs: () -> Bool) -> Bool{  //第二引数をクロージャに変更
+    
+    if lhs {
+        print("lhs-true")
+        return true
+    } else {
+        let rhs = rhs()
+        print("rhs")
+        return rhs
+    }
+}
+
+func lhs2() -> Bool {
+    print("lhs関数を実行します")
+    return true
+}
+
+func rhs2() -> Bool {
+    print("rhs関数を実行します")
+    return false
+}
+
+or2(lhs: lhs2(), rhs: {return rhs2()})   //第二引数を、rhs()という関数を返す処理を行うクロージャで作成することで、必要な場合にのみ処理を行うようにできる.
+//これを、遅延評価という
