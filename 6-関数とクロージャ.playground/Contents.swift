@@ -363,3 +363,34 @@ func rhs3() -> Bool {
 }
 
 or3(lhs: lhs3(), rhs: rhs3())  //引数の記述がautoclosure属性によって、簡略化することができる。
+
+
+//トレイリングクロージャについて  ->  関数の最後の引数がクロージャだった場合に、（）外にクロージャを記述する方法
+
+
+func trailingFunc1(parameter:Int, handler: (String) -> Void) {
+    handler("\(parameter)というクロージャ")
+}
+
+//トレイリングクロージャを使用しなかった場合
+
+trailingFunc1(parameter: 1, handler: {String in print("\(String)を表示しています(トレイリング不使用)")})
+
+//トレイリングクロージャを使用した場合
+//処理の流れ  parameter引数を受け取った関数が、handlerというクロージャを起動 ->  "\(parameter)というクロージャ"という引数を使ってhandlerクロージャが実行される。
+trailingFunc1(parameter: 10) { String in
+    print("\(String)を表示しています。(トレイリング使用)")
+
+}
+
+//引数がクロージャだけのものだけだった場合は、関数実行時の（）の記述も必要がなくなる
+
+func trailingFunc2(handler: (Int) -> Int){
+    handler(10)
+}
+
+trailingFunc2 { int in
+    return int * 100
+}
+
+
