@@ -393,4 +393,27 @@ trailingFunc2 { int in
     return int * 100
 }
 
+//クロージャとしての関数 -> 例：mapの引数として、名前をつけたクロージャ関数を利用することで、可読性の高いコードを書く
 
+//まず、与えられた数値型を2倍にして返す関数（クロージャ）を作成する
+func double1(x: Int) -> Int {
+    return x * 2
+}
+
+let array1 = [1,2,3,4,5]
+
+let doubleArray1 = array1.map(double1) //mapは、引数にクロージャを必要とするので、あらかじめ準備しておいたものを使うことができる
+type(of: double1) //クロージャを指定した変数名は、引数を指定しなければ、クロージャそのものとして認識される
+type(of: double1(x: 10))  //引数を指定した場合は、クロージャを実行した後の戻り値として扱われる。
+
+
+
+//クロージャを用いることで、二次元配列的な配列も、簡単に初期化することができる。
+var board:[[Int]] = {
+    let sideLength = 3
+    let row = Array(repeating: 1, count: sideLength)
+    let board = Array(repeating: row, count: sideLength)
+    return board
+}()
+
+let array8 = Array(repeating: 10, count: 10) //repeatingは配列の値、countは、要素の数を表している。
