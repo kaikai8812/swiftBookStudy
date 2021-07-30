@@ -64,3 +64,56 @@ greet1.helloFunc()
 greet2.helloFunc()
 print(Greeding.language)  //型自身.スタティックプロパティ　で、アクセスすることができる。
 
+//ストアドプロパティ => 値を保持するプロパティのこと
+
+struct stadPr {
+    //ストアドプロパティは、以下のように普通に記述することで作成される。
+    var variable = 123
+    let constant = 456
+    static var staticVaraiable = 789
+    static let staticconstant = 890
+}
+
+//プロパティオブサーバ => ストアドプロパティの値の変更を監視し、変更前と変更後、それぞれのタイミングで処理を行うもの
+
+struct ofServePro {
+    var name:String = "青山" {
+        willSet{  //プロパティのnameが変更される直前に実行される。
+            print("変更前の名前は、\(name)です。これから、\(newValue)に変更します。")  //変更後の値は、newValueという変数が暗黙的に使用することができる。
+        }
+        didSet{  //nameの更新が終了時に実行される。
+            print("\(name)に変更が完了しました。")
+        }
+    }
+}
+
+var ofServe = ofServePro()
+ofServe.name = "青山改" //nameの値を更新したので、規定したwillsetとdidsetの実行が行われる。
+
+
+//レイジーストアドプロパティ => アクセス時まで初期化を遅延させるプロパティ
+
+struct lazystadPr {
+    
+    //通常のストアドプロパティ
+    var value:Int = {
+        print("通常のストアドプロパティの初期化")
+        return 1
+    }()
+    
+    //レイジーストアドプロパティ
+    lazy var lazyValue: Int = {
+        print("レイジーストアドプロパティの初期化")
+        return 2
+    }()
+    
+    //レイジーストアドプロパティは、普通のインスタンスの初期化の後に処理されるため。他のプロパティの値を使った定義などをすることができる。
+    lazy var lazyValue2: Int = {
+        return value * 10  //通常のストアドプロパティの値を初期化に用いている。
+    }()
+    
+}
+
+var lazystad = lazystadPr()  //インスタンス化した時点では、valueの初期化は行われているが、lazyValueの初期化は行われていないことがわかる。
+print("valueの値は,\(lazystad.value)です。")
+print("レイジーストアドの値は、\(lazystad.lazyValue)です。") //レイジーストアドプロパティの値にアクセスした時点で、値の初期化が行われていることが確認できる。
