@@ -168,3 +168,54 @@ print("摂氏温度は、\(temperature.celsius): 華氏温度は、\(temperature
 
 temperature.fahrenheit = 32
 print("摂氏温度は、\(temperature.celsius): 華氏温度は、\(temperature.fahrenheit)")
+
+
+//イニシャライザ -- インスタンスの初期化処理
+
+struct InitSample1 {
+    let to: String
+    var body: String {
+        return "hello,\(to)"
+    }
+    
+    init(to: String) {  //初期化処理　引数で受け取った値が入った「to」を、定数である「to」に代入している。
+         self.to = to
+    }
+}
+
+var initSample1 = InitSample1(to: "サンプル")  //インスタンス化をする際に、引数を加えて
+initSample1.body
+
+//失敗可能イニシャライザについて
+
+struct Items {
+    let id: Int
+    let title: String
+     
+    //init?にすることで、失敗の可能性がある状態の初期化処理を行うことができる。
+    init?(dictionary: [String: Any]) {  //String型のキーと、Any型のvalueを持つdictionary型が入る配列を規定
+        guard let id = dictionary["id"] as? Int, let title = dictionary["title"] as? String else {
+            return nil  //初期化に必要な情報がない際には、エラー文を生じさせるため、nilを戻り値として返す
+        }
+        
+        self.id = id
+        self.title = title
+    }
+    
+}
+
+let dictionaries: [[String: Any]] = [  //初期化の際に必要な情報を、配列にして保存
+    ["id": 1, "title": "1回目"],
+    ["id": 2],  //インスタンス化の際に必要な情報がかけている場合には、初期化が失敗する。
+    ["id": 3, "title": "3回目"]
+    
+]
+
+for dictionary in dictionaries {
+    if let item = Items(dictionary: dictionary) {
+        print(item)
+    } else {
+        print("失敗しました。")  // 初期化に失敗した場合（引数が足りなかった場合）は、失敗表示を行う。
+    }
+}
+
