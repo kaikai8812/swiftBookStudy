@@ -219,3 +219,29 @@ for dictionary in dictionaries {
     }
 }
 
+
+//7.5 メソッド  --  型に基づく関数のこと
+
+//インスタンスメソッド -- インスタンスに紐づくメソッド
+//スタティックメソッド -- 型に基づくメソッド
+
+struct methodSample {
+    let greeting:String
+    static var every:String = "みなさん"
+    
+    init(greet: String) {
+        self.greeting = greet
+    }
+    
+    func greet1(yourName name: String) {   //通常にインスタンスメソッドの作成
+        print("\(name)さん、\(greeting)")
+    }
+    
+    static func greet2() {
+        print("\(every)、こんにちわ")  //スタティックメソッドで使う変数は、スタティックプロパティでなければならない -> 普通の変数では、インスタンスごとに変わってしまい、型に紐づかなくなってしまうため
+    }
+}
+
+let method1 = methodSample(greet: "おはようごぁいます！")
+method1.greet1(yourName: "太郎")
+methodSample.greet2()
