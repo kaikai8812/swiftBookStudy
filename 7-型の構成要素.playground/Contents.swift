@@ -245,3 +245,40 @@ struct methodSample {
 let method1 = methodSample(greet: "おはようごぁいます！")
 method1.greet1(yourName: "太郎")
 methodSample.greet2()
+
+//オーバーロード　同名のメソッドでも、引数や戻り値の違いによって、処理を分けるメソッド
+
+//引数によるオーバーロード
+
+struct overroadSample1 {
+    
+    //引数によるオーバーロード
+    func put(value:String) {  //String型の値を受け取るメソッド
+        print("\(type(of: value))型の\(value)を受け取りました")
+    }
+    func put(value:Int) {     //Int型の値を受け取るメソッド
+        print("\(type(of: value))型の\(value)を受け取りました")
+    }
+    
+    //戻り値によるオーバーロード
+    
+    let intValue = 1000
+    let stringValue = "サンプル"
+    
+    func out() -> Int {
+        return intValue
+    }
+    
+    func out() -> String {
+        return stringValue
+    }
+}
+
+var overroad1 = overroadSample1()
+overroad1.put(value: "あいう")
+overroad1.put(value: 100) //受け取る引数の違いによって、実行されるメソッドが変わっていることがわかる
+
+let string1:String = overroad1.out()  //代入されるメソッドの戻り値によって、メソッドが変わっていることがわかる。
+let int1:Int = overroad1.out()
+
+
