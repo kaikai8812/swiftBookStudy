@@ -117,3 +117,54 @@ struct lazystadPr {
 var lazystad = lazystadPr()  //インスタンス化した時点では、valueの初期化は行われているが、lazyValueの初期化は行われていないことがわかる。
 print("valueの値は,\(lazystad.value)です。")
 print("レイジーストアドの値は、\(lazystad.lazyValue)です。") //レイジーストアドプロパティの値にアクセスした時点で、値の初期化が行われていることが確認できる。
+
+//コンピューテッドプロパティ -- 値を保持せずに算出されるプロパティ (プロパティ自身では、値を保存しない)
+
+//getキーワードを用いて、値を取得する
+
+struct Computed1{
+    var name = "sample"
+    
+    var body :String {  //コンピューテッドプロパティの記述
+        get {  //getキーワードを用いて、nameプロパティを使ってコンピューテッドプロパティを規定している
+            print("取得")
+            return "Hello!,\(name)"
+        }
+    }
+}
+
+let computed1 = Computed1()
+print(computed1.body)
+
+
+//setキーワードを用いて、値の更新を行う  (何か、連動する値を作成したい場合等に、この方法を使える)
+//複数ある変数の値の整合性を必要とする場合に、この方法を使うと良い。
+
+struct Temperature {
+    var celsius: Double = 0.0
+    
+    var fahrenheit: Double {
+        get {
+            print("get")
+            return (9.0 / 5.0 ) * celsius + 32.0
+        }
+        
+        set {  //コンピューテッドプロパティであるfahrenheitの値が変化した際に、ストアドプロパティのcelsiusを更新させるために使用している。
+            print("set")
+            celsius = ( 9.0 / 5.0 ) * (newValue - 32.0)  //変更後のコンピューテッドプロパティの値には、newValueキーワードを使用してアクセスすることができる。
+        }
+        
+        
+//        set(newFahrenheit) {
+//            celsius = ( 9.0 / 5.0 ) * (newFahrenheit - 32.0) //newValueの代わりに、自分で変数名を指定することも可能
+//        }
+        
+        
+    }
+}
+var temperature = Temperature()
+temperature.celsius = 25
+print("摂氏温度は、\(temperature.celsius): 華氏温度は、\(temperature.fahrenheit)")  //ここの処理で、どちらの値も中身が更新されていることがわかる。
+
+temperature.fahrenheit = 32
+print("摂氏温度は、\(temperature.celsius): 華氏温度は、\(temperature.fahrenheit)")
