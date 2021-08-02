@@ -281,4 +281,91 @@ overroad1.put(value: 100) //受け取る引数の違いによって、実行さ�
 let string1:String = overroad1.out()  //代入されるメソッドの戻り値によって、メソッドが変わっていることがわかる。
 let int1:Int = overroad1.out()
 
+// 7.6 サブスクリプト コレクション要素へのアクセス
+//サブスクリプトを自分で設定することで、インスタンスに対してインデックス番号でアクセスした際にどのような挙動をするかを決めることができます。
 
+struct Progression {
+    var numbers: [Int] = [1,2,3,4,5]
+        
+    subscript(index:Int) -> Int {
+        get {  //値の取得時に、getキーワード下の処理が行われる
+            return numbers[index]
+        }
+        
+        set(newValue) {  //値の更新時に、処理が行われる。  //setキーワードを省略すると、値の更新ができないが、コンパイルエラーにはならない。
+            numbers[index] = newValue + 10
+        }
+    }
+}
+
+var progress = Progression()
+progress.numbers
+progress[2]  //getキーワードが使用される
+progress[2] = 100  //setキーワードが使用される
+progress[2]  //setが適用されているのが確認できる
+
+// エクステンション　型の拡張 -> すでに存在している型に色々な要素(プロパティやメソッドなど)を追加すること
+
+// 例　String型のメソッドを追加する
+
+extension String {  //extensionで、独自の要素を既存の型に追加する。
+    
+    //関数の追加
+    func printSelf() {  //独自の関数を設定。
+        print(self)
+    }
+    
+    //コンピューテッドプロパティの追加
+    var enclosedString :String {
+        get {
+            return "「\(self)」"
+        }
+    }
+    
+}
+let extention1:String = "sample"
+extention1.printSelf()    //自分で設定した関数が使用できるようになっている。
+
+print(extention1.enclosedString) //独自に設定したコンピューテッドプロパティが使用可能になっている。
+
+//エクステンションでイニシャライザを追加する
+
+enum WebAPIError : Error { // :の後に型を指定することで、引数の型を指定している？
+    case connectionError(Error)
+    case fatalError
+    
+    var title :String {
+        switch self {
+        case .connectionError:
+            return "通信エラー"
+        case .fatalError:
+            return "致命的エラー"
+        }
+    }
+    
+    var message: String {
+        switch self {
+        case .connectionError(let underlyingError):
+            return underlyingError.localizedDescription + "再試行してください"
+        case .fatalError:
+            return "サポート窓口に連絡してください"
+        }
+    }
+}
+
+
+extension UIAlertController{ //UIAlertController型の初期化を拡張している
+    convenience init(WebAPIError: WebAPIError){
+        self.init(title: WebAPIError.title,
+                  message: WebAPIError.message,
+                  preferredStyle: .alert)
+    }
+}
+
+let error = WebAPIError.fatalError
+error.title
+type(of: error)
+let alert = UIAlertController(WebAPIError: error) //引数に作成した列挙型の値を取ることで、初期化の引数を増やしている。
+alert.message
+
+let alert2 = UIAlertController(title: <#T##String?#>, message: <#T##String?#>, preferredStyle: <#T##UIAlertController.Style#>) //普通はこの形で引数を取るが、あらかじめ初期化用の列挙型の型を取ることによって、この記述を省略している。
